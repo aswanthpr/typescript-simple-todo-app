@@ -1,0 +1,182 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+      <div class="header-left"></div>
+      <h1>Edit Task</h1>
+      <div class="header-right"></div>
+    </header>
+    
+    <main>
+        <form action="/update/<%= task.id %>" method="POST" class="edit-task-form">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" value="<%= task.title %>" required>
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="to-do" <%= task.status === 'to-do' ? 'selected' : '' %>>To Do</option>
+                    <option value="in-progress" <%= task.status === 'in-progress' ? 'selected' : '' %>>In Progress</option>
+                    <option value="done" <%= task.status === 'done' ? 'selected' : '' %>>Done</option>
+                </select>
+            </div>
+            <button type="submit" class="update-btn">Update Task</button>
+        </form>
+    </main>
+    <a href="/" class="back-btn">← Back</a>
+
+
+    <footer>
+      <a href="/" class="footer-back-btn">← Back to Task List</a> 
+    </footer>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: #4a90e2;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-left,
+        .header-right {
+            display: inline-block;
+            width: 10%;
+        }
+
+        h1 {
+            display: inline-block;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        main {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-task-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .update-btn {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .update-btn:hover {
+            background-color: #357ab8;
+        }
+
+        .back-btn {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #4a90e2;
+            font-size: 16px;
+        }
+
+        .back-btn:hover {
+            color: #357ab8;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left"></div>
+        <h1>Edit Task</h1>
+        <div class="header-right"></div>
+    </header>
+    
+    <main>
+        <form action="/update/<%= task.id %>" method="POST" class="edit-task-form">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" value="<%= task.title %>" required>
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="to-do" <%= task.status === 'to-do' ? 'selected' : '' %>>To Do</option>
+                    <option value="in-progress" <%= task.status === 'in-progress' ? 'selected' : '' %>>In Progress</option>
+                    <option value="done" <%= task.status === 'done' ? 'selected' : '' %>>Done</option>
+                </select>
+            </div>
+            <button type="submit" class="update-btn">Update Task</button>
+        </form>
+        <a href="/" class="back-btn">← Back to Task List</a>
+    </main>
+
+    <footer>
+        <!-- Footer content can be added here if needed -->
+    </footer>
+</body>
+</html>

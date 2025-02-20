@@ -1,0 +1,269 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My To-Do List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- <link rel="stylesheet" href="/styles.css"> -->
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: #4a90e2;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-left,
+        .header-right {
+            display: inline-block;
+            width: 10%;
+        }
+
+        h1 {
+            display: inline-block;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .settings-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        main {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-form {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .task-input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .add-btn {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-btn:hover {
+            background-color: #357ab8;
+        }
+
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-item.done .task-details h3 {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .priority-dot {
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .task-details {
+            flex: 1;
+        }
+
+        .task-details h3 {
+            margin: 0 0 5px;
+            font-size: 18px;
+        }
+
+        .task-details p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .edit-btn, .delete-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #4a90e2;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        .edit-btn:hover, .delete-btn:hover {
+            color: #357ab8;
+        }
+
+        footer {
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        .clear-completed-btn {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .clear-completed-btn:hover {
+            background-color: #357ab8;
+        }
+
+        .tasks-left {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #4a90e2;
+        }
+
+        .filter-btn:hover {
+            color: #357ab8;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left"></div>
+        <h1>To-Do</h1>
+        <div class="header-right">
+            <button class="settings-btn">⋮</button>
+        </div>
+    </header>
+
+    <main>
+        <form action="/add" method="POST" class="task-form">
+            <div class="urgent-container">
+                <label class="pr-2">
+                    <input type="checkbox" name="isUrgent"> Urgent
+                </label>
+            </div>
+            <input type="text" name="title" placeholder="Add a new task..." required class="task-input">
+            <button type="submit" class="add-btn">+</button>
+            
+           
+        </form>
+
+        <ul class="task-list">
+            <% task.forEach(ta => { %>
+                <li class="task-item <%= ta.status === 'done' ? 'done' : '' %>">
+                    <span class="priority-dot"></span>
+                    <div class="task-details">
+                        <h3><%= ta.title %></h3>
+                        <p><%= ta.status %></p>
+                        <p>Priority: <%= ta.getPriority() %></p>
+                    </div>
+                    <div class="actions">
+                        <a href="/edit/<%= ta.id %>" class="edit-btn">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="/delete/<%= ta.id %>" method="POST" style="display: inline;">
+                            <button type="submit" class="delete-btn">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </div>
+                </li>
+            <% }); %>
+        </ul>
+    </main>
+
+    <footer>
+        <!-- <button class="clear-completed-btn">Clear Completed</button> -->
+        <p class="tasks-left"><%= task.filter(task => task.status !== 'done').length %> tasks left</p>
+        <div class="filters">
+            <button class="filter-btn">All</button>
+            <button class="filter-btn">Active</button>
+            <button class="filter-btn">Completed</button>
+        </div>
+    </footer>
+
+   
+    <script>
+        function toggleTaskStatus(taskId) {
+            // Implement logic to toggle task status via AJAX or a simple form submission
+            console.log(`Task ID ${taskId} status toggled.`);
+        }
+    </script>
+</body>
+</html>
+
